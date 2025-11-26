@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovely Surprise!</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    font-family: 'Comic Sans MS', sans-serif;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    animation: glow 2s infinite alternate;
+  }
+
+  @keyframes glow {
+    0% { text-shadow: 2px 2px 10px rgba(255,255,255,0.6); }
+    100% { text-shadow: 2px 2px 20px rgba(255,255,255,1); }
+  }
+
+  #character {
+    width: 200px;
+    cursor: pointer;
+    animation: float 3s ease-in-out infinite;
+    transition: transform 0.3s;
+  }
+
+  /* Floating animation */
+  @keyframes float {
+    0% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-25px) rotate(5deg); }
+    100% { transform: translateY(0) rotate(-5deg); }
+  }
+
+  #message {
+    margin-top: 20px;
+    padding: 15px 25px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 30px;
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    max-width: 350px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Floating hearts animation */
+  .heart {
+    position: absolute;
+    font-size: 24px;
+    animation: floatHeart 3s linear infinite;
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  @keyframes floatHeart {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { transform: translateY(-150px) scale(1.5); opacity: 1; }
+    100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<h1>💖 Lovely Surprise! 💖</h1>
+<img id="character" src="https://i.ibb.co/ZpkNfqBz/Screenshot-2025-11-26-141623.png" alt="Cute Character">
+<div id="message">Click the image!</div>
+
+<script>
+const character = document.getElementById('character');
+const messageDiv = document.getElementById('message');
+
+// Short, impactful messages
+const lines = [
+  "Your smile = my happiness 😍",
+  "Too cute to handle 😘",
+  "Your cuteness broke the meter 😏",
+  "Smile like that… wow 💖",
+  "Irresistibly adorable 😎",
+  "Cutest ever, no contest 😘",
+  "Heart = stolen 💖"
+];
+
+// Generate floating hearts
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.textContent = '💖';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 3000);
+}
+
+// Click animation and voice
+character.addEventListener('click', () => {
+  // Show random message
+  const message = lines[Math.floor(Math.random() * lines.length)];
+  messageDiv.textContent = message;
+
+  // Speak it in cute voice
+  const utterance = new SpeechSynthesisUtterance(message);
+  utterance.pitch = 2;    // high pitch = cute
+  utterance.rate = 0.8;   // slower = playful
+  const voices = speechSynthesis.getVoices();
+  utterance.voice = voices.find(v => v.name.toLowerCase().includes('female')) || voices[0];
+  speechSynthesis.speak(utterance);
+
+  // Add bounce effect
+  character.style.transform = "translateY(-40px) rotate(10deg) scale(1.2)";
+  setTimeout(() => {
+    character.style.transform = "translateY(0) rotate(0deg) scale(1)";
+  }, 400);
+
+  // Create multiple hearts
+  for(let i=0; i<5; i++) {
+    setTimeout(createHeart, i*100);
+  }
+});
+</script>
+
+</body>
+</html>
+
+
