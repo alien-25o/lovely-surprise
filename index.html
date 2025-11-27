@@ -3,146 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lovely Surprise!</title>
+<title>Happy Birthday Surprise 🎉</title>
+
 <style>
-  body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-    font-family: 'Comic Sans MS', sans-serif;
-    overflow: hidden;
-    color: #fff;
-    text-align: center;
-  }
-
-  h1 {
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-    animation: glow 2s infinite alternate;
-  }
-
-  @keyframes glow {
-    0% { text-shadow: 2px 2px 10px rgba(255,255,255,0.6); }
-    100% { text-shadow: 2px 2px 20px rgba(255,255,255,1); }
-  }
-
-  #character {
-    width: 200px;
-    cursor: pointer;
-    animation: float 3s ease-in-out infinite;
-    transition: transform 0.3s;
-  }
-
-  /* Floating animation */
-  @keyframes float {
-    0% { transform: translateY(0) rotate(-5deg); }
-    50% { transform: translateY(-25px) rotate(5deg); }
-    100% { transform: translateY(0) rotate(-5deg); }
-  }
-
-  #message {
-    margin-top: 20px;
-    padding: 15px 25px;
-    background: rgba(255,255,255,0.8);
-    border-radius: 30px;
-    color: #333;
-    font-size: 20px;
-    font-weight: bold;
-    max-width: 350px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease;
-  }
-
-  @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Floating hearts animation */
-  .heart {
-    position: absolute;
-    font-size: 24px;
-    animation: floatHeart 3s linear infinite;
-    pointer-events: none;
-    opacity: 0.8;
-  }
-
-  @keyframes floatHeart {
-    0% { transform: translateY(0) scale(1); opacity: 0.8; }
-    50% { transform: translateY(-150px) scale(1.5); opacity: 1; }
-    100% { transform: translateY(-300px) scale(0.8); opacity: 0; }
-  }
-
-</style>
-</head>
-<body>
-
-<h1>💖 Lovely Surprise! 💖</h1>
-<img id="character" src="https://i.ibb.co/ZpkNfqBz/Screenshot-2025-11-26-141623.png" alt="Cute Character">
-<div id="message">Click the image!</div>
-
-<script>
-const character = document.getElementById('character');
-const messageDiv = document.getElementById('message');
-
-// Short, impactful messages
-const lines = [
-  "Your smile = my happiness 😍",
-  "Too cute to handle 😘",
-  "Your cuteness broke the meter 😏",
-  "Smile like that… wow 💖",
-  "Irresistibly adorable 😎",
-  "Cutest ever, no contest 😘",
-  "Heart = stolen 💖"
-];
-
-// Generate floating hearts
-function createHeart() {
-  const heart = document.createElement('div');
-  heart.classList.add('heart');
-  heart.textContent = '💖';
-  heart.style.left = Math.random() * window.innerWidth + 'px';
-  heart.style.fontSize = (20 + Math.random() * 20) + 'px';
-  document.body.appendChild(heart);
-
-  setTimeout(() => {
-    heart.remove();
-  }, 3000);
+body {
+  margin: 0;
+  background: #ffb6d9; /* Soft pink */
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
 }
 
-// Click animation and voice
-character.addEventListener('click', () => {
-  // Show random message
-  const message = lines[Math.floor(Math.random() * lines.length)];
-  messageDiv.textContent = message;
+/* Baby */
+.baby {
+  width: 230px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  animation: bounce 2s infinite ease-in-out;
+}
 
-  // Speak it in cute voice
-  const utterance = new SpeechSynthesisUtterance(message);
-  utterance.pitch = 2;    // high pitch = cute
-  utterance.rate = 0.8;   // slower = playful
-  const voices = speechSynthesis.getVoices();
-  utterance.voice = voices.find(v => v.name.toLowerCase().includes('female')) || voices[0];
-  speechSynthesis.speak(utterance);
+@keyframes bounce {
+  0% { transform: translate(-50%, -46%); }
+  50% { transform: translate(-50%, -54%); }
+  100% { transform: translate(-50%, -46%); }
+}
 
-  // Add bounce effect
-  character.style.transform = "translateY(-40px) rotate(10deg) scale(1.2)";
-  setTimeout(() => {
-    character.style.transform = "translateY(0) rotate(0deg) scale(1)";
-  }, 400);
+/* Birthday Popup */
+#birthday-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 90, 150, 0.88);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
 
-  // Create multiple hearts
-  for(let i=0; i<5; i++) {
-    setTimeout(createHeart, i*100);
-  }
+.birthday-box {
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 20px;
+  max-width: 90%;
+  text-align: center;
+  color: #ff2e87;
+  font-size: 18px;
+  font-weight: 600;
+  animation: pop 0.5s ease-out;
+  box-shadow: 0 0 15px rgba(0,0,0,0.25);
+  line-height: 1.5;
+}
+
+.birthday-box button {
+  margin-top: 18px;
+  padding: 10px 22px;
+  background: #ff2e87;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Stable note below baby */
+#popup {
+  position: absolute;
+  top: 72%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0); 
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #ff2e87;
+  font-weight: 600;
+  max-width: 85%;
+  text-align: center;
+  border-radius: 0;
+}
+
+/* Floating hearts */
+@keyframes floatUp {
+  0% { bottom: 0; opacity: 1; }
+  100% { bottom: 300px; opacity: 0; }
+}
+.heart {
+  position: absolute;
+  color: #ff2e87;
+  font-size: 28px;
+  animation: floatUp 2.5s linear infinite;
+}
+</style>
+</head>
+
+<body>
+<!-- Birthday music -->
+<audio id="bgm" autoplay loop>
+    <source src="happy-birthday-357371.mp3
+" type="audio/mpeg">
+</audio>
+<!-- Birthday Popup -->
+<div id="birthday-popup">
+  <div class="birthday-box">
+
+    <p class="birthday-text">
+      💘 <b>Happy Birthday, bestie!</b><br>
+      Ye chhota sa surprise meri taraf se ❤️🥰
+    </p>
+
+    <button onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<!-- Baby Image -->
+<img class="baby" src="https://i.ibb.co/4ZGsXpck/Screenshot-2025-11-27-112707.png">
+
+<!-- Stable Note -->
+<div id="popup"></div>
+
+<!-- Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<script>
+/* Popup Close Function */
+function closePopup() {
+  document.getElementById("birthday-popup").style.display = "none";
+}
+
+/* Confetti on load */
+confetti({
+  particleCount: 180,
+  spread: 120,
+  origin: { y: 0.3 }
 });
+
+/* Floating Hearts */
+function createHeart() {
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.style.left = Math.random() * window.innerWidth + "px";
+  h.innerHTML = "💗";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 2500);
+}
+setInterval(createHeart, 350);
+
+/* Birthday Note Below Baby */
+const note = `
+💘 Happy Birthday, bestie! 🎂✨<br><br>
+Aaj tum officially ek saal aur zyaada cute ho gayi ho —<br>
+aur mujhe still samajh nahi aa raha tum insaan ho ya<br>
+limited-edition heart stealer version 2.0 💗😳<br><br>
+
+Sach bolu toh,<br>
+birthday tumhara hai,<br>
+par overload cuteness-attacks mujhe ho rahe hain. 😅🔥<br><br>
+
+Cake se jealous mat hona…<br>
+kyunki today you're the sweetest thing here. 🍰😉💕<br><br>
+
+Bas promise karo —<br>
+aaj bohot saari smile, selfie<br>
+aur thoda sa attitude dogi,<br>
+baaki flirting ka kaam main sambhaal lunga. 😎💗
+`;
+
+document.getElementById("popup").innerHTML = note;
 </script>
 
 </body>
 </html>
-
 
